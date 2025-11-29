@@ -1,19 +1,17 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState('')
 
-  const isOperator = (char) => {
+  const isOperator = (char) => { //function
     return ['+', '-', '*', '/'].includes(char)
   }
 
   const handleOperator = (operator) => {
     if (count === '') return 
     
-    const lastChar = count[count.length - 1]
+    const lastChar = count[count.length - 1] //string - something to process
     
     if (isOperator(lastChar)) {
       setCount(count.slice(0, -1) + operator)
@@ -22,7 +20,6 @@ function App() {
     }
   }
 
-  // Function to handle opening bracket
   const handleOpenBracket = () => {
     const lastChar = count[count.length - 1]
     
@@ -38,26 +35,25 @@ function App() {
     }
   }
 
-  // Function to handle closing bracket
   const handleCloseBracket = () => {
     if (count === '') return // Can't start with closing bracket
     
     const lastChar = count[count.length - 1]
-    
-    // Only add closing bracket if:
-    // 1. Last character is a number, decimal, or closing bracket, AND
-    // 2. There are unmatched opening brackets
+
+    // Check for balanced brackets
     const openBrackets = (count.match(/\(/g) || []).length
     const closeBrackets = (count.match(/\)/g) || []).length
     
-    if ((lastChar >= '0' && lastChar <= '9') || lastChar === '.' || lastChar === ')') {
+    // Add closing bracket if:
+    // 1. last character is a number, OR
+    // 2. Last character is a closing bracket
+    if ((lastChar >= '0' && lastChar <= '9') || lastChar === ')') {
       if (openBrackets > closeBrackets) {
         setCount(count + ')')
       }
     }
   }
 
-  // Enhanced calculation function with error handling
   const handleCalculate = () => {
     try {
       // Check for balanced brackets
