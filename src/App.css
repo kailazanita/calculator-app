@@ -60,6 +60,15 @@ footer {
     line-height: normal;
 }
 
+.Letter a {
+    text-decoration: none;
+    color: #FFF;
+}
+
+.Letter a:hover {
+    text-decoration: underline;
+}
+
 .Copyright {
     color: #FFF;
     text-align: center;

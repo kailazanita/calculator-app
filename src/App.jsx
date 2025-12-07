@@ -8,7 +8,7 @@ function App() {
     <>
       <header className="header">
         <h1>An Online Simple Calculator</h1>
-        <a href="https://github.com/kailazanita/calculator-app.git"><img src={githubLogo} alt="GitHub Logo" width="50" height="50" /></a>
+        <a href="https://github.com/kailazanita/calculator-app.git" target="blank"><img src={githubLogo} alt="GitHub Logo" width="50" height="50" /></a>
       </header>
       <div className="calculator-wrapper">
         <SimpleCalculator />
@@ -24,7 +24,7 @@ function App() {
 
         <br></br><br></br>As you explore this site, I hope you find it not only useful but also a little inspiring. Sometimes, even the smallest tools can bring a spark of joy to our daily routines. Whether you're a student, a professional, or just someone who loves numbers, this calculator is here to make your life a little easier and a lot more delightful.
 
-        <br></br><br></br>If you have any suggestions, fun ideas, bug reports, emotional support requests, or you just want to say hi, feel free to reach out! You can find me over on GitHub @kailazanita! I love hearing from people who stumble upon my mini projects.
+        <br></br><br></br>If you have any suggestions, fun ideas, bug reports, emotional support requests, or you just want to say hi, feel free to reach out! You can find me over on GitHub <a href="https://github.com/kailazanita" target="blank">@kailazanita</a>! I love hearing from people who stumble upon my mini projects.
 
         <br></br><br></br>Thank you so much for choosing this website and for letting it be a part of your study vibes. Now go back to that work and calculate gorgeously! 
         </p>
