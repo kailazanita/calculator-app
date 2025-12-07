@@ -8,7 +8,7 @@ function App() {
     <>
       <header className="header">
         <h1>An Online Simple Calculator</h1>
-        <img src={githubLogo} alt="GitHub Logo" width="50" height="50" />
+        <a href="https://github.com/kailazanita/calculator-app.git"><img src={githubLogo} alt="GitHub Logo" width="50" height="50" /></a>
       </header>
       <div className="calculator-wrapper">
         <SimpleCalculator />
