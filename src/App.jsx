@@ -1,188 +1,37 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react";
+import './App.css';
+import SimpleCalculator from "./SimpleCalculator";
+import githubLogo from './assets/images/github.webp';
 
 function App() {
-  const [count, setCount] = useState('')
-
-  const isOperator = (char) => { //function
-    return ['+', '-', '*', '/'].includes(char)
-  }
-
-  const handleOperator = (operator) => {
-    if (count === '') return 
-    
-    const lastChar = count[count.length - 1] //string - something to process
-    
-    if (isOperator(lastChar)) {
-      setCount(count.slice(0, -1) + operator)
-    } else {
-      setCount(count + operator)
-    }
-  }
-
-  const handleOpenBracket = () => {
-    const lastChar = count[count.length - 1]
-    
-    // Add opening bracket if:
-    // 1. String is empty, OR
-    // 2. Last character is an operator, OR
-    // 3. Last character is an opening bracket
-    if (count === '' || isOperator(lastChar) || lastChar === '(') {
-      setCount(count + '(')
-    } else {
-      // If last char is a number or closing bracket, add multiplication before opening bracket
-      setCount(count + '*(')
-    }
-  }
-
-  const handleCloseBracket = () => {
-    if (count === '') return // Can't start with closing bracket
-    
-    const lastChar = count[count.length - 1]
-
-    // Check for balanced brackets
-    const openBrackets = (count.match(/\(/g) || []).length
-    const closeBrackets = (count.match(/\)/g) || []).length
-    
-    // Add closing bracket if:
-    // 1. last character is a number, OR
-    // 2. Last character is a closing bracket
-    if ((lastChar >= '0' && lastChar <= '9') || lastChar === ')') {
-      if (openBrackets > closeBrackets) {
-        setCount(count + ')')
-      }
-    }
-  }
-
-  const handleCalculate = () => {
-    try {
-      // Check for balanced brackets
-      const openBrackets = (count.match(/\(/g) || []).length
-      const closeBrackets = (count.match(/\)/g) || []).length
-      
-      if (openBrackets !== closeBrackets) {
-        setCount('Error: Unmatched brackets')
-        return
-      }
-      
-      // Check if expression ends with operator
-      const lastChar = count[count.length - 1]
-      if (isOperator(lastChar)) {
-        setCount('Error: Invalid expression')
-        return
-      }
-      
-      const result = eval(count)
-      setCount(result.toString())
-    } catch (error) {
-      setCount('Error')
-    }
-  }
-
   return (
-    <div className="container">
-      <div className="calculator">
-        <form action="">
-          <div>
-            <input type="text" className="calculator-screen" value={count}  />
-          </div>
-          <div className="calculator-keys">
-
-            <div className="first-row">
-              <button type="button" className="open-bracker" value="(" onClick={handleOpenBracket}>
-                (
-              </button>
-
-              <button type="button" className="close-bracket" value=")" onClick={handleCloseBracket}>
-                )
-              </button>
-
-              <button type="button" className="all-clear" value="all-clear" onClick={e => setCount('')}>
-                AC
-              </button>
-
-              <button type="button" className="clear-entry" value="clear-entry" onClick={e => setCount(count.slice(0, -1))}>
-                CE
-              </button>
-            </div>
-
-            <div className="second-row">
-              <button type="button" value="7" onClick={e => setCount(count + e.target.value)}>
-                7
-              </button>
-
-              <button type="button" value="8" onClick={e => setCount(count + e.target.value)}>
-                8
-              </button>
-
-              <button type="button" value="9" onClick={e => setCount(count + e.target.value)}>
-                9
-              </button>
-
-              <button type="button" className="operator" value="/" onClick={e => handleOperator(e.target.value)}>
-                &divide;
-              </button>
-            </div>
-
-            <div className="third-row">
-              <button type="button" value="4" onClick={e => setCount(count + e.target.value)}>
-                4
-              </button>
-              
-              <button type="button" value="5" onClick={e => setCount(count + e.target.value)}>
-                5
-              </button>
-
-              <button type="button" value="6" onClick={e => setCount(count + e.target.value)}>
-                6
-              </button>
-
-              <button type="button" className="operator" value="*" onClick={e => handleOperator(e.target.value)}>
-                &times;
-              </button>
-            </div>
-
-            <div className="fourth-row">
-              <button type="button" value="1" onClick={e => setCount(count + e.target.value)}>
-                1
-              </button>
-
-              <button type="button" value="2" onClick={e => setCount(count + e.target.value)}>
-                2
-              </button>
-
-              <button type="button" value="3" onClick={e => setCount(count + e.target.value)}>
-                3
-              </button>
-
-              <button type="button" className="operator" value="-" onClick={e => handleOperator(e.target.value)}>
-                -
-              </button>
-            </div>
-
-            <div className="fifth-row">
-              <button type="button" value="0" onClick={e => setCount(count + e.target.value)}>
-                0
-              </button>
-
-              <button type="button" className="decimal" value="." onClick={e => setCount(count + e.target.value)}>
-                .
-              </button>
-
-              <button type="button" className="equal-sign" value="=" onClick={handleCalculate}>
-                =
-              </button>
-
-              <button type="button" className="operator" value="+" onClick={e => handleOperator(e.target.value)}>
-                +
-              </button>
-            </div>
-
-          </div>
-        </form>
+    <>
+      <header className="header">
+        <h1>An Online Simple Calculator</h1>
+        <img src={githubLogo} alt="GitHub Logo" width="50" height="50" />
+      </header>
+      <div className="calculator-wrapper">
+        <SimpleCalculator />
       </div>
-    </div>
-  )
+      <footer>
+        <p className="Introduction">Hi, it’s Kaila here! ⭐</p>
+        <p className="Letter">
+        Welcome to my little corner of the internet, a Calculator Website specially crafted to brighten up your study or homework sessions. Think of it as math with a makeover: a cozy, aesthetic, scrapbook-inspired space where numbers feel a little less intimidating and a lot more fancy. 
+
+        <br></br><br></br>Whether you're crunching equations, checking your science homework, or just pretending to be productive (we’ve all been there), I hope this site makes your day a bit lighter and your tasks a bit more かわいい. My goal was to create something that feels warm, approachable, and maybe even fun(?) because who said calculators have to be boring?
+
+        <br></br><br></br>This project is a labor of love, built with React to ensure a smooth and responsive experience. It’s designed to be simple yet effective, so you can focus on what matters most, getting your work done with a smile.
+
+        <br></br><br></br>As you explore this site, I hope you find it not only useful but also a little inspiring. Sometimes, even the smallest tools can bring a spark of joy to our daily routines. Whether you're a student, a professional, or just someone who loves numbers, this calculator is here to make your life a little easier and a lot more delightful.
+
+        <br></br><br></br>If you have any suggestions, fun ideas, bug reports, emotional support requests, or you just want to say hi, feel free to reach out! You can find me over on GitHub @kailazanita! I love hearing from people who stumble upon my mini projects.
+
+        <br></br><br></br>Thank you so much for choosing this website and for letting it be a part of your study vibes. Now go back to that work and calculate gorgeously! 
+        </p>
+        <p className="Copyright">&copy;ilacodes</p>
+      </footer>
+    </>
+  );
 }
 
-export default App
+export default App;

@@ -1,41 +1,72 @@
-.container {
-  width: 100vw;
-  height: 100vh;
-  background-color: #282c34;
-  align-items: center;
-  justify-content: center;
-  display: flex;
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.calculator {
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #f9f9f9;
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #FAEAD6;
+    min-height: 100vh;
 }
 
-.calculator-screen {
-  width: 260px;
-  height: 50px;
-  margin: 5px;
-  background-color: #222;
-  color: #fff;
-  font-size: 1.5em;
-  text-align: right;
-  border-radius: 5px;
-  margin-bottom: 20px;
+header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    padding: 40px 60px;
+    background-color: #FAEAD6; 
 }
 
-button {
-  width: 60px;
-  height: 60px;
-  margin: 5px;
-  font-size: 1.2em;
-  border: solid 1px #ccc;
-  border-radius: 5px;
-  cursor: pointer;
+header h1 {
+    margin: 0;
+    font-size: 3em;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    color: #558460;
 }
 
-button:hover {
-  background-color: #e0e0e0;
-  border: solid 1px #999;
+header img {
+    height: 70px;
+    width: auto;
+}
+
+footer {
+    background: #558460;
+    margin-top: 105px;
+    padding: 150px 150px 75.5px 150px;
+}
+
+.Introduction {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 30px;
+}
+
+.Letter {
+    color: #FFF;
+    text-align: justify;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.Copyright {
+    color: #FFF;
+    text-align: center;
+    font-family: "Bricolage Grotesque";
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 100px;
 }

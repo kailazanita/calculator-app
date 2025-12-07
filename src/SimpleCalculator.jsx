@@ -1,0 +1,242 @@
+import { useState } from 'react';
+import './SimpleCalculator.css';
+
+function SimpleCalculator() {
+  const [count, setCount] = useState('');
+  const [justCalculated, setJustCalculated] = useState(false); // Add this state
+
+  const isOperator = (char) => { //function
+    return ['+', '-', '*', '/'].includes(char)
+  }
+
+  const handleOperator = (operator) => {
+    if (count === '') return 
+    
+    const lastChar = count[count.length - 1] //string - something to process
+    if (isOperator(lastChar)) {
+      setCount(count.slice(0, -1) + operator)
+    } else {
+      setCount(count + operator)
+    }
+    
+    setJustCalculated(false) // Reset when operator is used
+  }
+
+  const handleOpenBracket = () => {
+    // Clear screen if user just calculated and starts fresh with bracket
+    if (justCalculated) {
+      setCount('(')
+      setJustCalculated(false)
+      return
+    }
+    
+    const lastChar = count[count.length - 1]
+    
+// Add opening bracket if:
+    // 1. String is empty, OR
+    // 2. Last character is an operator, OR
+    // 3. Last character is an opening bracket
+    if (count === '' || isOperator(lastChar) || lastChar === '(') {
+      setCount(count + '(')
+    } else {
+      setCount(count + '*(')
+    }
+  }
+
+  const handleCloseBracket = () => {
+    if (count === '') return // Can't start with closing bracket
+    
+    const lastChar = count[count.length - 1]
+
+    // Check for balanced brackets
+    const openBrackets = (count.match(/\(/g) || []).length
+    const closeBrackets = (count.match(/\)/g) || []).length
+    
+    // Add closing bracket if:
+    // 1. last character is a number, OR
+    // 2. Last character is a closing bracket
+    if ((lastChar >= '0' && lastChar <= '9') || lastChar === ')') {
+      if (openBrackets > closeBrackets) {
+        setCount(count + ')')
+      }
+    }
+    
+    setJustCalculated(false) // Reset when bracket is used
+  }
+
+  const handleCalculate = () => {
+    try {
+      let expression = count;
+      
+      // Count unmatched brackets
+      const openBrackets = (expression.match(/\(/g) || []).length
+      const closeBrackets = (expression.match(/\)/g) || []).length
+      const unmatchedBrackets = openBrackets - closeBrackets
+      
+      // Auto-add closing brackets if there are unmatched opening brackets
+      if (unmatchedBrackets > 0) {
+        expression += ')'.repeat(unmatchedBrackets)
+      }
+      
+// Check if expression ends with operator
+      const lastChar = expression[expression.length - 1]
+      if (isOperator(lastChar)) {
+        setCount('Error: Invalid expression')
+        return
+      }
+      
+      const result = eval(expression)
+      setCount(result.toString())
+      setJustCalculated(true) // Set flag when calculation is done
+    } catch (error) {
+      setCount('Error')
+      setJustCalculated(true) // Also set for errors
+    }
+  }
+
+  const formatDisplayText = (text) => {
+    return text
+      .replace(/\*/g, '×')
+      .replace(/\//g, '÷');
+  };
+
+  return (
+    <div className="container">
+      <div className="calculator">
+        <form action="">
+          <div>
+            <input type="text" className="calculator-screen" placeholder='0' value={formatDisplayText(count)} readOnly />
+          </div>
+          <div className="calculator-keys">
+
+            <div className="first-row">
+              <button type="button" className="open-bracker" value="(" onClick={handleOpenBracket}>
+                (
+              </button>
+
+              <button type="button" className="close-bracket" value=")" onClick={handleCloseBracket}>
+                )
+              </button>
+
+              <button type="button" className="all-clear" value="all-clear" onClick={() => { setCount(''); setJustCalculated(false); }}>
+                AC
+              </button>
+
+              <button type="button" className="clear-entry" value="clear-entry" onClick={e => setCount(count.slice(0, -1))}>
+                CE
+              </button>
+            </div>
+
+            <div className="second-row">
+              <button type="button" value="7" onClick={e => {
+                if (justCalculated) { setCount(e.target.value); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                7
+              </button>
+
+              <button type="button" value="8" onClick={e => {
+                if (justCalculated) { setCount(e.target.value); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                8
+              </button>
+
+              <button type="button" value="9" onClick={e => {
+                if (justCalculated) { setCount(e.target.value); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                9
+              </button>
+
+              <button type="button" className="operator" value="/" onClick={e => handleOperator(e.target.value)}>
+                &divide;
+              </button>
+            </div>
+
+            <div className="third-row">
+              <button type="button" value="4" onClick={e => {
+                if (justCalculated) { setCount(e.target.value); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                4
+              </button>
+              
+              <button type="button" value="5" onClick={e => {
+                if (justCalculated) { setCount(e.target.value); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                5
+              </button>
+
+              <button type="button" value="6" onClick={e => {
+                if (justCalculated) { setCount(e.target.value); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                6
+              </button>
+
+              <button type="button" className="operator" value="*" onClick={e => handleOperator(e.target.value)}>
+                &times;
+              </button>
+            </div>
+
+            <div className="fourth-row">
+              <button type="button" value="1" onClick={e => {
+                if (justCalculated) { setCount(e.target.value); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                1
+              </button>
+
+              <button type="button" value="2" onClick={e => {
+                if (justCalculated) { setCount(e.target.value); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                2
+              </button>
+
+              <button type="button" value="3" onClick={e => {
+                if (justCalculated) { setCount(e.target.value); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                3
+              </button>
+
+              <button type="button" className="operator" value="-" onClick={e => handleOperator(e.target.value)}>
+                -
+              </button>
+            </div>
+
+            <div className="fifth-row">
+              <button type="button" value="0" onClick={e => {
+                if (justCalculated) { setCount(e.target.value); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                0
+              </button>
+
+              <button type="button" className="decimal" value="." onClick={e => {
+                if (justCalculated) { setCount('0.'); setJustCalculated(false); } 
+                else { setCount(count + e.target.value); }
+              }}>
+                .
+              </button>
+
+              <button type="button" className="equal-sign" value="=" onClick={handleCalculate}>
+                =
+              </button>
+
+              <button type="button" className="operator" value="+" onClick={e => handleOperator(e.target.value)}>
+                +
+              </button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+export default SimpleCalculator
